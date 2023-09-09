@@ -1069,14 +1069,13 @@ out_error:
 		/* Wrote some bytes before encountering an
 		 * error, return partial success.
 		 */
-		if (copied)
-			goto partial_message;
-		if (head != kcm->seq_skb)
-			kfree_skb(head);
-	} else {
-		kfree_skb(head);
-		kcm->seq_skb = NULL;
+		goto partial_message;
 	}
+
+	if (head != kcm->seq_skb)
+		kfree_skb(head);
+	else if (copied)
+		kcm_tx_msg(head)->last_skb = skb;
 
 	err = sk_stream_error(sk, msg->msg_flags, err);
 
