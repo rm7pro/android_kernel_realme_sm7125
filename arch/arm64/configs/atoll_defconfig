@@ -1060,3 +1060,6 @@ CONFIG_KSU=y
 # Enable WPA3 personal
 # This uses SAE (Simultaneous Authentication of Equals) for key_mgmt
 CONFIG_SAE=y
+
+# Wireguard
+CONFIG_WIREGUARD=y
